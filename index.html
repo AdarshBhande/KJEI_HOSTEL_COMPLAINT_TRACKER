@@ -1,12 +1,13 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Hostel Complaint Tracker</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <style>
+<meta charset="utf-8"/>
+<title>Hostel Complaint Tracker</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<style>
     :root {
       --primary-color: #4a69bd;
       --secondary-color: #6a89cc;
@@ -22,7 +23,7 @@
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { font-family: 'Poppins', sans-serif; background-color: var(--light-bg); color: var(--dark-text); display: flex; flex-direction: column; align-items: center; min-height: 100vh; }
     header { background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); color: var(--light-text); padding: 15px 0; width: 100%; box-shadow: 0 2px 10px rgba(0,0,0,0.1); margin-bottom: 2rem; }
-    .header-content { display: flex; align-items: center; max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+    .header-content { display: flex; align-items: center; justify-content: space-between; max-width: 1100px; margin: 0 auto; padding: 0 20px; }
     header h1 { font-weight: 600; font-size: 1.8em; margin: 0 0 0 20px; }
     header img { max-height: 60px; }
     .container { width: 90%; max-width: 500px; margin: 1rem 0; background: var(--light-text); padding: 30px; border-radius: 12px; box-shadow: var(--shadow); animation: fadeIn 0.5s ease-in-out; }
@@ -53,111 +54,104 @@
     th { background: var(--light-bg); color: var(--dark-text); font-weight: 600; }
     tbody tr:hover { background-color: #f1f3f5; }
   </style>
-</head>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/></head>
 <body>
-
 <header>
-  <div class="header-content">
-    <img src="kjei.png" alt="College Logo"> 
-    <h1>KJEI HOSTEL COMPLAINT TRACKER</h1>
-  </div>
+<div class="header-content">
+<img alt="College Logo" src="kjei.png"/>
+<h1>KJEI HOSTEL COMPLAINT TRACKER</h1>
+<img alt="Escorp Logo" src="escorplogo.png" style="max-height:60px;"/></div>
 </header>
-
 <div class="container" id="loginPanel">
-  <h2>Login</h2>
-  <form onsubmit="login(this.querySelector('button')); event.preventDefault();">
-    <input type="text" id="loginEmail" placeholder="Enter Email or 'admin'">
-    <input type="password" id="loginPassword" placeholder="Enter Password">
-    <button type="submit">Login</button>
-  </form>
-  <p style="text-align: center; margin-top: 1rem;"><span class="link" onclick="showPanel('forgotPasswordPanel')">Forgot Password?</span></p>
-  <p style="text-align: center;">New user? <span class="link" onclick="showPanel('registerPanel')">Create an account</span></p>
+<h2>Login</h2>
+<form onsubmit="login(this.querySelector('button')); event.preventDefault();">
+<input id="loginEmail" placeholder="Enter Email or 'admin'" type="text"/>
+<input id="loginPassword" placeholder="Enter Password" type="password"/>
+<button type="submit">Login</button>
+</form>
+<p style="text-align: center; margin-top: 1rem;"><span class="link" onclick="showPanel('forgotPasswordPanel')">Forgot Password?</span></p>
+<p style="text-align: center;">New user? <span class="link" onclick="showPanel('registerPanel')">Create an account</span></p>
 </div>
-
 <div class="container hidden" id="adminPanel" style="max-width: 1100px;">
-    <h2>Admin Dashboard</h2>
-    <p>Welcome, Admin. Here are all submitted complaints.</p>
-    <table id="complaintsTable">
-        <thead>
-            <tr>
-                <th>Email</th>
-                <th>Name</th>
-                <th>Room</th>
-                <th>Type</th>
-                <th>Complaint</th>
-                <th>Status</th>
-                <th>Timestamp</th>
-            </tr>
-        </thead>
-        <tbody id="allComplaints"></tbody>
-    </table>
-    <button onclick="logout()" class="logout-btn" style="margin-top:1rem;">Logout</button>
+<h2>Admin Dashboard</h2>
+<p>Welcome, Admin. Here are all submitted complaints.</p>
+<table id="complaintsTable">
+<thead>
+<tr>
+<th>Email</th>
+<th>Name</th>
+<th>Room</th>
+<th>Type</th>
+<th>Complaint</th>
+<th>Status</th>
+<th>Timestamp</th>
+</tr>
+</thead>
+<tbody id="allComplaints"></tbody>
+</table>
+<button class="logout-btn" onclick="logout()" style="margin-top:1rem;">Logout</button>
 </div>
-
 <div class="container hidden" id="studentPanel" style="max-width: 900px;">
-  <h2>Student Dashboard</h2>
-  <p>Welcome, <b id="studentName"></b>!</p>
-  <h3>File a New Complaint</h3>
-  <select id="complaintType">
-    <option value="">-- Select Complaint Type --</option>
-    <option value="Plumbing Issue">Plumbing Issue</option>
-    <option value="Ragging Issue">Ragging Issue</option>
-    <option value="Cleaning Problem">Cleaning Problem</option>
-    <option value="Electricity Issue">Electricity Issue</option>
-    <option value="Other">Other</option>
-  </select>
-  <input type="text" id="roomNumber" placeholder="Enter Your Room Number (e.g., A-101)">
-  <textarea id="complaintText" placeholder="Please describe your issue in detail..."></textarea>
-  <button onclick="submitComplaint(this)">Submit Complaint</button>
-  <h3 style="margin-top: 2rem;">Your Complaint History</h3>
-  <div id="studentComplaints"></div>
-  <button onclick="logout()" class="logout-btn" style="margin-top:1rem;">Logout</button>
+<h2>Student Dashboard</h2>
+<p>Welcome, <b id="studentName"></b>!</p>
+<h3>File a New Complaint</h3>
+<select id="complaintType">
+<option value="">-- Select Complaint Type --</option>
+<option value="Plumbing Issue">Plumbing Issue</option>
+<option value="Ragging Issue">Ragging Issue</option>
+<option value="Cleaning Problem">Cleaning Problem</option>
+<option value="Electricity Issue">Electricity Issue</option>
+<option value="Other">Other</option>
+</select>
+<input id="roomNumber" placeholder="Enter Your Room Number (e.g., A-101)" type="text"/>
+<textarea id="complaintText" placeholder="Please describe your issue in detail..."></textarea>
+<button onclick="submitComplaint(this)">Submit Complaint</button>
+<h3 style="margin-top: 2rem;">Your Complaint History</h3>
+<div id="studentComplaints"></div>
+<button class="logout-btn" onclick="logout()" style="margin-top:1rem;">Logout</button>
 </div>
-
 <div class="container hidden" id="forgotPasswordPanel">
-    <h2>Forgot Password</h2>
-    <p>Enter your email address and we'll send you a code to reset your password.</p>
-    <input type="email" id="forgotEmail" placeholder="Enter your registered email">
-    <button onclick="forgotPassword(this)">Send Reset Code</button>
-    <p style="text-align: center; margin-top: 1rem;"><span class="link" onclick="showPanel('loginPanel')">Back to Login</span></p>
+<h2>Forgot Password</h2>
+<p>Enter your email address and we'll send you a code to reset your password.</p>
+<input id="forgotEmail" placeholder="Enter your registered email" type="email"/>
+<button onclick="forgotPassword(this)">Send Reset Code</button>
+<p style="text-align: center; margin-top: 1rem;"><span class="link" onclick="showPanel('loginPanel')">Back to Login</span></p>
 </div>
 <div class="container hidden" id="resetOtpPanel">
-    <h2>Enter Reset Code</h2>
-    <p>A 6-digit code has been sent to <b id="resetOtpEmailDisplay"></b>. Please enter it below.</p>
-    <input type="number" id="resetOtpInput" placeholder="Enter 6-digit OTP">
-    <button onclick="verifyResetOtp(this)">Verify Code</button>
+<h2>Enter Reset Code</h2>
+<p>A 6-digit code has been sent to <b id="resetOtpEmailDisplay"></b>. Please enter it below.</p>
+<input id="resetOtpInput" placeholder="Enter 6-digit OTP" type="number"/>
+<button onclick="verifyResetOtp(this)">Verify Code</button>
 </div>
 <div class="container hidden" id="newPasswordPanel">
-    <h2>Create New Password</h2>
-    <p>Enter a new, secure password for your account.</p>
-    <input type="password" id="newPasswordInput" placeholder="Enter New Password">
-    <input type="password" id="confirmNewPasswordInput" placeholder="Confirm New Password">
-    <button onclick="resetPassword(this)">Reset Password</button>
+<h2>Create New Password</h2>
+<p>Enter a new, secure password for your account.</p>
+<input id="newPasswordInput" placeholder="Enter New Password" type="password"/>
+<input id="confirmNewPasswordInput" placeholder="Confirm New Password" type="password"/>
+<button onclick="resetPassword(this)">Reset Password</button>
 </div>
 <div class="container hidden" id="registerPanel">
-  <h2>Create Student Account</h2>
-  <input type="text" id="regFirstName" placeholder="First Name">
-  <input type="text" id="regLastName" placeholder="Last Name">
-  <input type="email" id="regEmail" placeholder="Email Address">
-  <button onclick="register(this)">Register</button>
-  <p style="text-align: center; margin-top: 1rem;">Already have an account? <span class="link" onclick="showPanel('loginPanel')">Login here</span></p>
+<h2>Create Student Account</h2>
+<input id="regFirstName" placeholder="First Name" type="text"/>
+<input id="regLastName" placeholder="Last Name" type="text"/>
+<input id="regEmail" placeholder="Email Address" type="email"/>
+<button onclick="register(this)">Register</button>
+<p style="text-align: center; margin-top: 1rem;">Already have an account? <span class="link" onclick="showPanel('loginPanel')">Login here</span></p>
 </div>
 <div class="container hidden" id="otpPanel">
-    <h2>2-Step Verification</h2>
-    <p>An OTP has been sent to <b id="otpEmailDisplay"></b>. Please enter it below.</p>
-    <input type="number" id="otpInput" placeholder="Enter 6-digit OTP">
-    <button onclick="verifyOtp(this)">Verify OTP</button>
+<h2>2-Step Verification</h2>
+<p>An OTP has been sent to <b id="otpEmailDisplay"></b>. Please enter it below.</p>
+<input id="otpInput" placeholder="Enter 6-digit OTP" type="number"/>
+<button onclick="verifyOtp(this)">Verify OTP</button>
 </div>
 <div class="container hidden" id="setPasswordPanel">
-    <h2>Set Your Password</h2>
-    <p>Create a secure password for your account.</p>
-    <input type="password" id="setPasswordInput" placeholder="Enter New Password">
-    <input type="password" id="confirmPasswordInput" placeholder="Confirm New Password">
-    <button onclick="setPassword(this)">Set Password & Login</button>
+<h2>Set Your Password</h2>
+<p>Create a secure password for your account.</p>
+<input id="setPasswordInput" placeholder="Enter New Password" type="password"/>
+<input id="confirmPasswordInput" placeholder="Confirm New Password" type="password"/>
+<button onclick="setPassword(this)">Set Password &amp; Login</button>
 </div>
-
 <div id="toast"></div>
-
 <script>
   // IMPORTANT: Paste your NEW Web App URL here from Google Apps Script
   const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw60dQaQIRS4TI2E2lo2cdmfjBk7mbeiDi2L4djBc8M8audQbNIau1lPGuMp3KsGxca/exec";
@@ -379,6 +373,5 @@
   }
 
 </script>
-
 </body>
 </html>
